@@ -26,7 +26,7 @@ author:
 language: 
   title-block-author-single: "Writer"
   
-abstract: Today we are going to create an index/score. For this we have a lot of variables of socioeconomical aspects and we are going to clean and select the ones we are going to use to create the index/score
+abstract: We are going to follow the plan made in [The Analysis Plan](Analysis_Plan.qmd#Data Analysis Plan) to do the data analysis
 ---
 
 ------------------------------------------------------------------------
