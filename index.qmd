@@ -1,7 +1,7 @@
 ---
 title: "Home"
-subtitle: "Home"
-filters: [remove_title.lua]
+#subtitle: "Home"
+#filters: [remove_title.lua]
 bibliography: "https://api.citedrive.com/bib/4712f3c4-f8df-4180-87d7-32bd5ddfd63a/references.bib?x=eyJpZCI6ICI0NzEyZjNjNC1mOGRmLTQxODAtODdkNy0zMmJkNWRkZmQ2M2EiLCAidXNlciI6ICIyOTUwIiwgInNpZ25hdHVyZSI6ICI4ZWJjMWNiODRhNDMyNjE1M2E2YTYwYjQ2M2RhY2FhMTJhNGQ5MzhhOWRjYWU2Yjg4MTY2MTdjODAxYmJlYTcwIn0=/bibliography.bib"
 ---
 

@@ -51,28 +51,28 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Data Analysis Course - Optional",
+    "title": "Home",
     "section": "",
     "text": "Welcome! These notes are from the Data Analysis Course (optional) at the Institute of Tropical Medicine in Antwerp.\nThis case involves the data cleaning and data analysis of a dataset from a project in Bihar, India (funded by TMRC, Tropical Medicine Research Council) that was used in a published analysis on risk factors for visceral leishmaniasis (Hasker et al. 2012).\nThese notes were made as an extended reference for the solution script given by Tom Smekens PhD. All this webpage was created using RStudio with Quarto. I hope you find it useful! If you find any errors, please let me know, thanks!"
   },
   {
     "objectID": "index.html#disclaimer",
     "href": "index.html#disclaimer",
-    "title": "Data Analysis Course - Optional",
+    "title": "Home",
     "section": "Disclaimer",
     "text": "Disclaimer\nPlease note: These notes are a reflection of an own understanding and may not exactly match all the codes provided in class. Use them as a guide and always verify the solutions."
   },
   {
     "objectID": "index.html#navigation",
     "href": "index.html#navigation",
-    "title": "Data Analysis Course - Optional",
+    "title": "Home",
     "section": "Navigation",
     "text": "Navigation\nUse the sidebar on the left to navigate through the different exercises."
   },
   {
     "objectID": "index.html#author",
     "href": "index.html#author",
-    "title": "Data Analysis Course - Optional",
+    "title": "Home",
     "section": "Author",
     "text": "Author\nJavier Silva-Valencia javier.silva@unmsm.edu.pe"
   },
