@@ -1,0 +1,29 @@
+---
+title: "Home"
+subtitle: "Home"
+filters: [remove_title.lua]
+bibliography: "https://api.citedrive.com/bib/4712f3c4-f8df-4180-87d7-32bd5ddfd63a/references.bib?x=eyJpZCI6ICI0NzEyZjNjNC1mOGRmLTQxODAtODdkNy0zMmJkNWRkZmQ2M2EiLCAidXNlciI6ICIyOTUwIiwgInNpZ25hdHVyZSI6ICI4ZWJjMWNiODRhNDMyNjE1M2E2YTYwYjQ2M2RhY2FhMTJhNGQ5MzhhOWRjYWU2Yjg4MTY2MTdjODAxYmJlYTcwIn0=/bibliography.bib"
+---
+
+
+## Case: Visceral Leishmaniasis in Bihar
+
+Welcome! These notes are from the Data Analysis Course (optional) at the Institute of Tropical Medicine in Antwerp. 
+
+This case involves the data cleaning and data analysis of a dataset from a project in Bihar, India (funded by TMRC, Tropical Medicine Research Council) that was used in a published analysis on risk factors for visceral leishmaniasis [@Hasker_2012]. 
+
+These notes were made as an extended reference for the solution script given by **Tom Smekens PhD**. All this webpage was created using **RStudio** with Quarto. I hope you find it useful! If you find any errors, please let me know, thanks!
+
+## Disclaimer
+
+Please note: These notes are a reflection of an own understanding and may not exactly match all the codes provided in class. Use them as a guide and always verify the solutions.
+
+## Navigation
+
+Use the sidebar on the left to navigate through the different exercises.
+
+## Author
+
+***Javier Silva-Valencia**<br> javier.silva@unmsm.edu.pe*
+
+

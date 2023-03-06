@@ -1,0 +1,535 @@
+---
+title: "Data Cleaning"
+format: 
+  html:
+    self-contained: true
+    code-line-numbers: true
+  pdf: 
+    documentclass: article
+custom_title_page: false
+filters:
+  - lightbox
+lightbox: auto
+---
+
+---
+subtitle: "Data Cleaning"
+date: 2023-02-28
+
+author:
+  - name: Javier Silva-Valencia
+    orcid: 0000-0002-5982-2821
+    email: javier.silva@unmsm.edu.pe
+    affiliations:
+      - name: Instituut Voor Tropische Geneeskunde. Antwerp-Belgium
+
+language: 
+  title-block-author-single: "Writer"
+  
+abstract: We are going to follow the plan made in [The Analysis Plan](Analysis_Plan.qmd#Data Analysis Plan) to do the data cleaning
+---
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+### Data Cleaning
+
+### 1. Reshape Q1_B\_1
+
+This dataset contains data of animals in household. We will reshape it so that each row should be a Household. We do that in order to merge with other datasets. Replace values if need it. (NA, -1)
+
+```{r}
+#Use the dataset with the short name variables we worked before and save
+Q1_B_1 = readRDS("Q1_B_1.RDS")
+```
+
+1.1 Reshaping from long to Wide
+
+We need one line for each household.
+
+So, we will use reshape command to say: "Reshape the database taking in to account that i want to make the database wider, having just one line for each household (FSN) and replicating the variables count, dist, indor, daysin for every animal that the household had"
+
+```{r}
+animals <- reshape(Q1_B_1,direction = "wide", timevar ="anim", idvar ="FSN", v.names = c("count","dist","indor", "daysin"), sep = "_")
+str(animals)
+class(animals)
+```
+
+::: callout-tip
+We observe:
+
+-   That now we have less observations (7147)(before was 9029 obs)
+
+-   There are a lot of NA (households than doesn't have that animal)
+
+-    There are also some -1 values
+:::
+
+1.2 Replacing innnecesary values
+
+We want to replace the NA and the -1 to Zero in all columns
+
+```{r}
+names(animals)
+#str(animals)
+#View(animals)
+
+animals$indor_Pou[is.na(animals$indor_Pou)] <- 0
+animals$indor_Pig[is.na(animals$indor_Pig)] <- 0
+animals$indor_Oth[is.na(animals$indor_Oth)] <- 0
+animals$indor_Goa[is.na(animals$indor_Goa)] <- 0
+animals$indor_Dog[is.na(animals$indor_Dog)] <- 0
+animals$indor_Cow[is.na(animals$indor_Cow)] <- 0
+animals$indor_Buf[is.na(animals$indor_Buf)] <- 0
+
+animals$daysin_Pou[is.na(animals$daysin_Pou) | animals$daysin_Pou == -1] <- 0
+animals$daysin_Pig[is.na(animals$daysin_Pig) | animals$daysin_Pig == -1] <- 0
+animals$daysin_Oth[is.na(animals$daysin_Oth) | animals$daysin_Oth == -1] <- 0
+animals$daysin_Goa[is.na(animals$daysin_Goa) | animals$daysin_Goa == -1] <- 0
+animals$daysin_Dog[is.na(animals$daysin_Dog) | animals$daysin_Dog == -1] <- 0
+animals$daysin_Cow[is.na(animals$daysin_Cow) | animals$daysin_Cow == -1] <- 0
+animals$daysin_Buf[is.na(animals$daysin_Buf) | animals$daysin_Buf == -1] <- 0
+
+animals$count_Pou[is.na(animals$count_Pou)| animals$count_Pou == -1] <- 0
+animals$count_Pig[is.na(animals$count_Pig)| animals$count_Pig == -1] <- 0
+animals$count_Oth[is.na(animals$count_Oth)| animals$count_Oth == -1] <- 0
+animals$count_Goa[is.na(animals$count_Goa)| animals$count_Goa == -1] <- 0
+animals$count_Dog[is.na(animals$count_Dog)| animals$count_Dog == -1] <- 0
+animals$count_Cow[is.na(animals$count_Cow)| animals$count_Cow == -1] <- 0
+animals$count_Buf[is.na(animals$count_Buf)| animals$count_Buf == -1] <- 0
+
+str(animals)
+```
+
+
+
+### 2. Create an asset index
+
+This index should include information of consumer goods, as well if having a bovine animal and if having a brick wall household.
+
+#### 2.1. Select consumer goods
+
+Select the consumer goods (from Q1_B_106 dataset) that will conform the asset.
+
+2.1.1. Importing the CSV database under the name of Q1_B\_106, with "," as separator, and with "." as decimal:
+
+```{r}
+Q1_B_106 <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_B_106.csv", sep=",", dec= ".")
+```
+
+2.1.2. Seeing the structure and values of the dataset
+
+```{r}
+str(Q1_B_106)
+```
+
+::: callout-tip
+According to dictionary
+
+-1 : Missing or not available
+
+0, 1, 2, 3 : Number of items they have
+:::
+
+2.1.3. Checking the summary of the variables 
+
+```{r}
+summary(Q1_B_106)
+```
+
+::: callout-tip
+Example of what we can see: The maximum number of radios in a household is 6
+:::
+
+
+2.1.4. Transform to dichotomous variables
+
+We need that all '-1' be converting to '0'. 
+
+and all value more than '≥ 1' be converting to '1'
+
+```{r}
+#We can do it by using "if else":
+Q1_B_106$own_Radio <- ifelse(Q1_B_106$Radio>0,1,0)
+
+
+#But other way is: 
+#Q1_B_106$own_Radio <- as.numeric(Q1_B_106$Radio > 0)
+#Ask to create a variable called "own_Radio" only TRUE when "Radio" is more than 0 and converting that into a number (as.numeric) (1:true,0:false)
+
+
+#Checking if it works
+table(Q1_B_106$own_Radio, Q1_B_106$Radio, useNA = "always")
+summary(Q1_B_106$own_Radio)
+
+```
+
+::: callout-tip
+As a result we can see that: 12.14% of households have at least one radio. Remember: When we only have 0 and 1, The mean of the variable is the proportion of individuals having the exposure.
+:::
+
+We need to do that for every variable
+
+```{r}
+Q1_B_106$own_Radio <- ifelse(Q1_B_106$Radio>0,1,0)
+Q1_B_106$own_CD_Player <- ifelse(Q1_B_106$CD_Player>0,1,0)
+Q1_B_106$own_BW_Television <- ifelse(Q1_B_106$BW_Television>0,1,0)
+Q1_B_106$own_Color_Television <- ifelse(Q1_B_106$Color_Television>0,1,0)
+Q1_B_106$own_Video_DVD_Player <- ifelse(Q1_B_106$Video_DVD_Player>0,1,0)
+Q1_B_106$own_Mobile <- ifelse(Q1_B_106$Mobile>0,1,0)
+Q1_B_106$own_Non_Mobile_Phone <- ifelse(Q1_B_106$Non_Mobile_Phone>0,1,0)
+Q1_B_106$own_Refrigerator <- ifelse(Q1_B_106$Refrigerator>0,1,0)
+Q1_B_106$own_Iron <- ifelse(Q1_B_106$Iron>0,1,0)
+Q1_B_106$own_Sewing_Machine <- ifelse(Q1_B_106$Sewing_Machine>0,1,0)
+Q1_B_106$own_Watch <- ifelse(Q1_B_106$Watch>0,1,0)
+Q1_B_106$own_Pressure_Cooker <- ifelse(Q1_B_106$Pressure_Cooker>0,1,0)
+Q1_B_106$own_Chairs <- ifelse(Q1_B_106$Chairs>0,1,0)
+Q1_B_106$own_Sofas <- ifelse(Q1_B_106$Sofas>0,1,0)
+Q1_B_106$own_Tables <- ifelse(Q1_B_106$Tables>0,1,0)
+Q1_B_106$own_Cot_Bed <- ifelse(Q1_B_106$Cot_Bed>0,1,0)
+Q1_B_106$own_Cupboards <- ifelse(Q1_B_106$Cupboards>0,1,0)
+Q1_B_106$own_Bicycle <- ifelse(Q1_B_106$Bicycle>0,1,0)
+Q1_B_106$own_Motor_Cycle <- ifelse(Q1_B_106$Motor_Cycle>0,1,0)
+Q1_B_106$own_Animal_Draw_Cart <- ifelse(Q1_B_106$Animal_Draw_Cart>0,1,0)
+Q1_B_106$own_Car <- ifelse(Q1_B_106$Car>0,1,0)
+Q1_B_106$own_Tractor <- ifelse(Q1_B_106$Tractor>0,1,0)
+Q1_B_106$own_Computer <- ifelse(Q1_B_106$Computer>0,1,0)
+Q1_B_106$own_Electric_Fan <- ifelse(Q1_B_106$Electric_Fan>0,1,0)
+```
+
+2.1.5. Now we will make a subset containing only the 'own' variables and FSN
+
+```{r}
+assets <- subset(Q1_B_106, select = grepl("own|FSN", names(Q1_B_106)))
+str(assets)  
+```
+
+2.1.6. Now we will focus only in those variables whose mean have a value between 5-95% (0.05-0.95)
+
+why?: Because We are going to exclude the variables that nobody has (less than 5%) and the variables that all people has (more than 95%)
+
+```{r}
+#summary(assets)
+round(sapply(assets, FUN=mean),3)   #To display the mean of each variable with 3 decimals
+```
+
+::: callout-tip
+Besides FSN, 10 variables have a value between 5-95% (0.05-0.95)
+:::
+
+2.1.7. We are going to create a new subset (assets2) with only in those variables whose mean have a value between 5-95% (0.05-0.95)
+
+```{r}
+assets2 <- subset(assets, select = c(FSN, own_Radio,own_Mobile, own_Sewing_Machine, own_Watch, own_Pressure_Cooker, own_Chairs, own_Tables, own_Bicycle, own_Motor_Cycle, own_Electric_Fan))
+str(assets2)
+```
+
+
+#### 2.2. Create own_bovine variable
+
+Use the previously created "animals" dataset to create a variable of owning a bovine animal.
+
+The researchers noticed that having a "bovines animals" variable is important, so we need to incorporate it. The only problem is that the animals information is in another dataset.
+
+'own_bov' for each household = whether or not it owns cows or buffaloes
+
+```{r}
+hlp1 <- subset(animals, select=c(FSN, count_Cow, count_Buf))
+hlp1$own_bov <- NA
+hlp1$own_bov[hlp1$count_Cow== 0 & hlp1$count_Buf==0] <- 0
+hlp1$own_bov[hlp1$count_Cow> 0 | hlp1$count_Buf>0] <- 1 
+str(hlp1)
+```
+
+
+#### 2.3. Create brickwall variable
+
+Use the Q1_B dataset to create a variable if the household have brickwalls.
+
+The researchers also noticed that having a "brick_wall" variable is important, so we need to incorporate it. The only problem is that the brick_wall information is in another dataset.
+
+2.3.1. Opening Q1_B dataset
+
+```{r}
+Q1_B <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_B.csv", sep=",", dec= ".")
+```
+
+2.3.2. Checking the variable Wall_Material in the Q1_B dataset
+
+```{r}
+table(Q1_B$Wall_Material)
+```
+
+::: callout-tip
+According the code list:
+
+    6= Other
+    163= Grass
+    163= Bamboo
+    164, 165, 166= Brick
+
+So we only need those who had the value 164 or 165 in the Wall_Material variable
+:::
+
+2.3.3. I only need "FSN" and "WallMaterial" variables
+
+```{r}
+hlp2 <- subset(Q1_B, select = c(FSN, Wall_Material))
+```
+
+2.3.4. Creating a new variable called brickwall according to what I need
+
+```{r}
+hlp2$brick_wall <- NA
+hlp2$brick_wall[hlp2$Wall_Material %in% c(6,162,163)] <- 0
+hlp2$brick_wall[hlp2$Wall_Material %in% c(164:166)] <- 1
+
+table(hlp2$brick_wall, Q1_B$Wall_Material)
+```
+
+
+
+#### 2.4. Merging datasets
+
+Merge all this datasets in order to create the asset index
+
+![Merging planning](mergingdatsets.png)
+
+2.4.1. Merging hlp1 and hlp2
+
+```{r}
+str(hlp1)
+str(hlp2)
+hlp  <-  merge(hlp2, hlp1, all=TRUE, by = "FSN")
+str(hlp)
+#View(hlp)
+```
+
+we Dont need countCow, count_Buf or Wall_Material
+
+```{r}
+hlp <- subset(hlp, select=-c(count_Cow,count_Buf,Wall_Material))
+str(hlp)
+```
+
+2.4.2. Merging hlp2 to assets2
+
+```{r}
+str(hlp)
+str(assets2)
+assets3  <-  merge(assets2, hlp, all=TRUE, by = "FSN")
+str(assets3)
+#View(assets3)
+```
+
+2.4.3. Check NA values
+
+The merging creates NA values (ex: in own_bov), but that values are because that household doesnt have a bovine animal, so it should be 0
+
+Checking NA
+
+```{r}
+table (assets3$own_bov)
+table (assets3$own_bov, useNA = "ifany")
+table (assets3$own_bov, useNA = "always")
+str(assets3)
+```
+
+2.4.4. Replacing NA
+
+```{r}
+assets3$own_bov[is.na(assets3$own_bov)]<- 0
+#View(assets3)
+table (assets3$own_bov, useNA = "always")
+```
+
+
+
+
+#### 2.5. Use PCA to create asset_index
+
+Create the asset index using the Principle component analysis (PCA) and then categorize it in 5 quintiles of wealth.
+
+
+::: {.callout-tip}
+## What is a Principle component analysis (PCA)?
+
+*Principal Component Analysis (PCA)* is a statistical technique that is used to transform a large number of variables into a smaller number (or just 1) new variable. Is often used for making scores or index.
+
+When we do a score/index we tend to put equal weight to every variable because we think that every variable is equal important. But is that true? Usually no. So in *Principle component analysis* we try to put a weight to every variable depending the variance. It is useful to also put in in order to know which first component we need to work. (Which variables are representatives and in what measure)
+
+The idea behind PCA is to find the underlying patterns in the data using its variances. The analysis will create a first (principal) component, then a second, third, and so on. Each component captures a different aspect of the variation in the data, with the first component capturing the most variation, and subsequent components capturing progressively less.
+
+Usually we use the first component and with that then create a weighted variable for each individual.
+:::
+
+```{r}
+names(assets3)
+```
+
+2.5.1. PCA command
+
+```{r}
+pcamod <- princomp(~own_Radio+own_Mobile+own_Sewing_Machine++own_Watch+own_Pressure_Cooker+own_Chairs+own_Tables+own_Bicycle+own_Motor_Cycle+own_Electric_Fan+brick_wall+ own_bov, cor=TRUE, data= assets3)
+```
+
+2.5.2. Inspect the component loadings of Comp.1
+
+```{r}
+pcamod$loadings
+```
+
+::: callout-tip
+We have to choose one model (one component) to select their scores
+:::
+
+2.5.3. Extract the component scores
+
+Create a variable named PC1 in assets3 from the scores un pcamod
+
+```{r}
+assets3$PC1 <- pcamod$scores[ ,1]
+#View(assets3)
+```
+
+2.5.4. Check the quintiles
+
+```{r}
+quantile(assets3$PC1, probs = seq(0,1, 1/5))
+```
+
+2.5.5. Create a new categorical variable 'asset_index' with values 1-5 by quintile
+
+```{r}
+assets3$asset_index <- NA
+assets3$asset_index[assets3$PC1 >= -2.11118368   & assets3$PC1 <=-1.66100172  ] <- "1"
+assets3$asset_index[assets3$PC1 >-1.66100172    & assets3$PC1 <=-0.98271146   ] <- "2"
+assets3$asset_index[assets3$PC1 >-0.98271146    & assets3$PC1 <=-0.06987735    ] <- "3"
+assets3$asset_index[assets3$PC1 >-0.06987735     & assets3$PC1 <=1.45281527    ] <- "4"
+assets3$asset_index[assets3$PC1 >1.45281527     & assets3$PC1 <=7.18120558  ] <- "5"
+
+
+```
+
+2.5.6. Drop unnecessary variables by making a subset
+
+Or final dataset (with the Asset index) only need to have FSN and asset_index
+
+```{r}
+assets4 <- subset(assets3, select= c(FSN,asset_index))
+str(assets4)
+table(assets4$asset_index)
+```
+
+
+
+### 3. Merging all the databases
+
+#### 3.1. Final Merging 
+(Questionnaire_1 + asset index + animals + Q1_B + Q1_Screening)
+
+3.1.1 Opening Questionnaire_1
+
+```{r}
+Questionnaire_1 <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Questionnaire_1.csv", sep=",", dec= ".")
+```
+
+```{r}
+str(Questionnaire_1)
+```
+
+3.1.2 Merging with the assets
+
+```{r}
+Quest1_assets4  <-  merge(assets4, Questionnaire_1, all=TRUE, by = "FSN")
+str(Quest1_assets4)
+```
+
+3.1.3 Merging with animals
+
+```{r}
+str(animals)
+str(Quest1_assets4)
+Quest1_assets4_animals <-  merge(Quest1_assets4, animals, all=TRUE, by = "FSN")
+str(Quest1_assets4_animals)
+#View(Quest1_assets4_animals)
+```
+
+3.1.4 Merging with Q1_B
+
+```{r}
+Q1_B <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_B.csv", sep=",", dec= ".")
+str(Q1_B)
+#Merge
+Quest1_assets4_animals_q1B <-  merge(Q1_B, Quest1_assets4_animals, all=TRUE, by = "FSN")
+str(Quest1_assets4_animals_q1B)
+```
+
+3.1.5 Opening Q1_Screening.csv
+
+```{r}
+Q1_Screening <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_Screening.csv", sep=",", dec= ".")
+str(Q1_Screening)
+```
+
+3.1.6 Merging with the merged database of households
+
+```{r}
+str(Quest1_assets4_animals_q1B)
+str(Q1_Screening)
+#Merge
+Quest1_assets4_animals_q1B_Persons <-  merge(Q1_Screening, Quest1_assets4_animals_q1B, all=TRUE, by = "FSN")
+str(Quest1_assets4_animals_q1B_Persons)
+```
+
+
+#### 3.2. Select variables of interest
+For the final dataset
+
+```{r}
+final_dataset  <- subset(Quest1_assets4_animals_q1B_Persons, select=c(
+  FSN, asset_index, Bamboo_Tree, Banana_Tree, Cooking_Fuel, Floor_Material, Granaries_in_HH, household_head_subcaste, indor_Buf, indor_Cow, indor_Pou, indor_Goa, count_Cow, count_Buf, count_Goa, count_Pou, Is_Floor_Damp, member_age, member_sex, Neem_Tree, No_Mosquito_Net, Perm_Water_Body, Rice_Field, Roof_Material, Sprayed_2009, Sprayed_2010, suffered_vl_since_2nd_survey, Wall_Material, Windows_in_Room
+))
+
+str(final_dataset)
+```
+
+We are going to save this final data set
+
+```{r}
+saveRDS(final_dataset, "final_dataset.RDS")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

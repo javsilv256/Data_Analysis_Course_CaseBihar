@@ -1,0 +1,40 @@
+{
+  "about.qmd": {
+    "about.html": "61d80066"
+  },
+  "Data Analysis Wk1.qmd": {
+    "Data Analysis Wk1.html": "2d409fe4",
+    "Data-Analysis-Wk1.tex": "edb63108"
+  },
+  "Data Analysis Wk2.qmd": {
+    "Data Analysis Wk2.html": "0e088c5f",
+    "Data-Analysis-Wk2.tex": "367d4fca"
+  },
+  "Data Analysis Wk3.qmd": {
+    "Data Analysis Wk3.html": "f923b9ff"
+  },
+  "index.qmd": {
+    "index.html": "231150a5"
+  },
+  "The case.qmd": {
+    "The case.html": "e63ac36b"
+  },
+  "Case.qmd": {
+    "Case.html": "d4487df3",
+    "Case.tex": "9705bde0"
+  },
+  "Analysis_Plan.qmd": {
+    "Analysis_Plan.html": "6286ecec",
+    "Analysis_Plan.tex": "43463d4a"
+  },
+  "The datasets.qmd": {
+    "The datasets.html": "f8dc8ea8"
+  },
+  "Thedata.qmd": {
+    "Thedata.html": "cc8d24f6"
+  },
+  "Sets.qmd": {
+    "Sets.html": "1acf19f8",
+    "Sets.tex": "9d36ec22"
+  }
+}

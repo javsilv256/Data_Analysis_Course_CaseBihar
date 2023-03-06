@@ -1,0 +1,74 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Data Analysis Course - Optional"
+#  description: "ddd"
+  
+  page-navigation: true
+  
+  navbar: 
+    background: primary
+#    left:
+#      - href: index.qmd
+#        text: Homes
+#      - about.qmd
+#      - text: More
+#        menu: 
+#          - about.qmd
+
+  sidebar: 
+    style: floating
+    search: true
+    contents: 
+      - index.qmd
+      - text: "---"
+      - "Case.qmd"
+      - "Sets.qmd"
+      - "Analysis_Plan.qmd"
+      - "Data Analysis Wk1.qmd"
+      - "Data Analysis Wk2.qmd"          
+      - "Data Analysis Wk3.qmd"
+          
+    title: "ssddddddddddddddddddddd"
+    subtitle: "sss"
+    #tools: 
+     # - icon: linkedin
+     #   href: https://www.linkedin.com/in/javier-silva-valencia/
+        
+  page-footer: 
+    center: "Copyright 2023, Javier Silva-Valencia. javier.silva@unmsm.edu.pe" 
+    right: 
+      - icon: github
+        href: https://github.com/
+      - icon: twitter 
+        href: https://twitter.com/ 
+    border: true
+    background: light 
+   
+  
+format: 
+  html:
+    theme:
+      light: [flatly, custom.scss]
+    toc: true
+    fontsize: "16px"
+    linestretch: 1.6
+    smooth-scroll: true
+    toc-depth: 4
+    code-link: true
+    reference-location: margin
+
+editor: visual
+ 
+latex-auto-install: true
+
+knitr:
+  opts_chunk:
+    cache: true
+    cache.lazy: false
+    R.options:
+      knitr.graphics.auto_pdf: true
+    attr.source: ".numberLines"
+

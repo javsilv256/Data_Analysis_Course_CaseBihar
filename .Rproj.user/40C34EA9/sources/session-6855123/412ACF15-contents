@@ -1,0 +1,119 @@
+---
+title: "The Plan"
+format: 
+  html:
+    self-contained: true
+    code-line-numbers: true
+  pdf: 
+    documentclass: article
+custom_title_page: false
+filters:
+  - lightbox
+lightbox: auto
+---
+
+---
+subtitle: "Let's check the datasets we will be working with"
+date: 2023-02-27
+
+author:
+  - name: Javier Silva-Valencia
+    orcid: 0000-0002-5982-2821
+    email: javier.silva@unmsm.edu.pe
+    affiliations:
+      - name: Instituut Voor Tropische Geneeskunde. Antwerp-Belgium
+
+language: 
+  title-block-author-single: "Writer"
+---
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Material to Work
+
+As a result of the survey (which was carried out at different times and/or using different units of analysis), five different data sets plus a list of codes were obtained.
+
+### 1. Dataset: Q1_B
+
+The unit of this data set is a household. It contains information about environmental factors such as the presence of certain trees, water bodies, wall material, organic material and mosquito nets
+
+```{r}
+setwd("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Data_Analysis_Course_CaseBihar") 
+```
+
+```{r}
+Q1_B <- read.csv("Material/Q1_B.csv", sep=",", dec= ".")
+str(Q1_B)
+```
+
+```{r}
+sum(duplicated(Q1_B$FSN))   #Counting duplicate values in FSN collumn
+```
+
+::: callout-tip
+There is no duplicates rows in FSN (Household number). So each row is a unique household
+:::
+
+### 2. Dataset: "Q1_B\_1"
+
+The unit of this data set is the animals in the household. It contains information about the owning of animals. Each row refers to an animal from a household.
+
+```{r}
+Q1_B_1 <- read.csv("Material/Q1_B_1.csv", sep=",", dec= ".")
+str(Q1_B_1)
+```
+
+```{r}
+sum(duplicated(Q1_B_1$FSN)) #Counting duplicate values in FSN column
+```
+
+::: callout-tip
+There are 1882 duplicates in FSN column (Household number). This means that some households have more than one type of animal
+:::
+
+### 3. Dataset: "Q1_B\_106"
+
+The unit of this data set is a household. It contains information about durable consumer goods at the level of the household.
+
+```{r}
+Q1_B_106 <- read.csv("Material/Q1_B_106.csv", sep=",", dec= ".")
+str(Q1_B_106)
+```
+
+```{r}
+sum(duplicated(Q1_B_106$FSN)) #Counting duplicate values in FSN column
+```
+
+::: callout-tip
+There is no duplicates rows in FSN (Household number). So each row is a unique household
+:::
+
+### 4. Dataset: Q1_Screening
+
+The unit of this data set is a person. It contains information about the age and sex of every person in a household as well if they were cases (had suffered visceral leshmaniasis since second survey)
+
+```{r}
+Q1_Screening <- read.csv("Material/Q1_Screening.csv", sep=",", dec= ".")
+str(Q1_Screening)
+```
+
+### 5. Dataset: Questionnaire_1
+
+The unit of this data set is the household. It contains information about the number and id of the village as well some demographic information about the head of the household
+
+```{r}
+Questionnaire_1 <- read.csv("Material/Questionnaire_1.csv", sep=",", dec= ".")
+str(Questionnaire_1)
+```
+
+### 6. Code_List
+
+This file contains the interpretation of all the codes used among all datasets.
+
+```{r}
+Code_List <- read.csv("Material/Code_List.csv", sep=",", dec= ".")
+head(Code_List, 10)  #Example of 10 first codes meaning
+```
+

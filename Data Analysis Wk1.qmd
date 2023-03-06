@@ -1,0 +1,194 @@
+---
+title: "Some practice"
+format: 
+  html:
+    self-contained: true
+    code-line-numbers: true
+  pdf: 
+    documentclass: article
+custom_title_page: false
+filters:
+  - lightbox
+lightbox: auto
+---
+
+---
+subtitle: "Let's practice some usefull commands"
+date: 2023-02-27
+
+author:
+  - name: Javier Silva-Valencia
+    orcid: 0000-0002-5982-2821
+    email: javier.silva@unmsm.edu.pe
+    affiliations:
+      - name: Instituut Voor Tropische Geneeskunde. Antwerp-Belgium
+
+language: 
+  title-block-author-single: "Writer"
+  
+abstract: Today we had an introduction to how to create subsets by row, subset by colls, appending (joining up-down), merging (joining left-righ).
+---
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+### Exercise 1
+
+Let's practice dividing and joining data.
+
+#### Import CSV
+
+Importing the CSV database under the name of Q1_B, with "," as separator, and with "." as decimal:
+
+```{r}
+Q1_B <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_B.csv", sep=",", dec= ".")
+```
+
+#### Create a subset by row
+
+Checking the identification variable of this dataset (FSN)
+
+```{r}
+summary(Q1_B$FSN)
+```
+
+::: callout-tip
+The median is 52032
+:::
+
+Let's divide the data in two parts taking as cut point the half of the rows (The median of FSN)
+
+```{r}
+top <- subset(Q1_B, subset= FSN < 52032)
+bottom <- subset(Q1_B, subset= FSN >= 52032)
+```
+
+Seeing the structure of the original dataset and the new subsets
+
+```{r}
+str(Q1_B)     #Original dataset
+str(top)      #Subset top of the data
+str(bottom)   #Subset bottom of the data
+```
+
+::: callout-tip
+In Q1_B we have 13377 obs
+
+If we sum the observations in the subsets:
+
+Top + bottom: 6688 + 6689 =13377
+
+So, it is ok
+:::
+
+#### Joining (Append)
+Let's join the two subsets (top and bottom)
+
+```{r}
+merged_top_bottom  <-  rbind(top,bottom)  #To merge
+str(merged_top_bottom)                    #To see the result
+```
+
+::: callout-tip
+There are 13377 obs 
+
+It is the same of the original, So it is ok
+:::
+
+#### Create a subset by coll
+
+Seeing the names of the collums (name of the variables)
+
+```{r}
+names(Q1_B)
+```
+
+Let's divide the data in two parts taking as cut point the half of the columns
+
+We have to be careful to keep an identification variable in each subset (in this case is FSN)
+
+```{r}
+Left <- subset(Q1_B, select=c("ID", "FSN", "Neem_Tree", "Neem_Tree_Distance", "Neem_Tree_Size", "Neem_Tree_Age", "Neem_Tree_Usage", "Neem_Tree_Use_Other", "Bamboo_Tree", "Bamboo_Tree_Dist", "Banana_Tree", "Banana_Tree_Dist", "Rice_Field", "Rice_Field_Dist", "Perm_Water_Body", "Perm_Wat_Body_Dist",  "Wat_Body_Mid_Point", "No_Mosquito_Net", "Sprayed_2010", "Sprayed_2009", "Floor_Material"))
+str(Left)
+```
+
+```{r}
+Rigth <- subset(Q1_B, select=c("FSN", "Other_Floor_Mat", "Is_Floor_Damp", "Roof_Material", "Other_Roof_Material", "Wall_Material", "Other_Wall_Material", "Windows_in_Room", "Granaries_in_HH", "Source_Drink_Water", "Other_Src_Drink_Wat", "Toilet_Facility", "Other_Toilet_Fac", "Cooking_Fuel", "Other_Cooking_Fuel", "Source_Light", "Other_Source_Light", "Electricity_in_HH", "No_Of_Rooms", "No_Sleeping_Rooms"))
+
+#Or select the opposite (With a "-" in front of the c):
+#Rigth <- subset(Q1_B, select=-c("ID", "Neem_Tree", "Neem_Tree_Distance", "Neem_Tree_Size", "Neem_Tree_Age", "Neem_Tree_Usage", "Neem_Tree_Use_Other", "Bamboo_Tree", "Bamboo_Tree_Dist", "Banana_Tree", "Banana_Tree_Dist", "Rice_Field", "Rice_Field_Dist", "Perm_Water_Body", "Perm_Wat_Body_Dist",  "Wat_Body_Mid_Point", "No_Mosquito_Net", "Sprayed_2010", "Sprayed_2009", "Floor_Material"))
+
+str(Rigth)
+```
+
+#### Joining (Merge)
+
+Let's join the two subsets (left and right) according to the FSN 
+
+```{r}
+merged_left_right  <-  merge(Left, Rigth, all=TRUE, by = "FSN")
+str(merged_left_right)
+```
+
+
+
+### Exercise 2
+
+Let's practice renaming variables and replacing values
+
+```{r}
+Q1_B_1 <- read.csv("C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Material/Q1_B_1.csv", sep=",", dec= ".")
+```
+
+```{r}
+str(Q1_B_1)
+head(Q1_B_1)
+```
+
+::: callout-tip
+We observe: 
+
+- There are 9029 obs 
+
+- The animal name is quite large sometimes 
+
+- The variable names are quite large
+:::
+
+
+#### Renaming variables
+
+Renaming variables labels: In collumns 2-5 to "anim", "count", "dist", "indor", "daysin"
+
+```{r}
+names(Q1_B_1)[c(2,3,4,5,6)] <- c("anim", "count", "dist", "indor", "daysin")
+str(Q1_B_1)
+#View(Q1_B_1)
+```
+
+```{r}
+table(Q1_B_1$count)
+table(Q1_B_1$dist)
+table(Q1_B_1$indor)
+table(Q1_B_1$daysin)
+```
+
+#### Replacing values in observations
+
+```{r}
+table(Q1_B_1$anim)
+Q1_B_1$anim[Q1_B_1$anim =="Buffaloes"] <- "Buff"
+Q1_B_1$anim[Q1_B_1$anim =="Goats"] <- "Goat"
+
+#But if we want to keep the 4 (x) first characters in a all rows
+Q1_B_1$anim <- substr(Q1_B_1$anim, 0, 3)
+table(Q1_B_1$anim)
+str(Q1_B_1)
+```
+
+
+We are going to save this data because we are going to use it later
+```{r}
+saveRDS(Q1_B_1, "Q1_B_1.RDS")
+```

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="dcterms.date" content="2023-02-27">
+<title>Data Analysis Course - Optional - The data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Analysis_Plan.html" rel="next">
+<link href="./Case.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script><script src="site_libs/quarto-diagram/mermaid-init.js"></script><link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data Analysis Course - Optional</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">The data</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Case.html" class="sidebar-item-text sidebar-link">The case</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sets.html" class="sidebar-item-text sidebar-link active">The data</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Analysis_Plan.html" class="sidebar-item-text sidebar-link">Analysis Plan</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data Analysis Wk1.html" class="sidebar-item-text sidebar-link">Some practice</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data Analysis Wk2.html" class="sidebar-item-text sidebar-link">Data Cleaning</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data Analysis Wk3.html" class="sidebar-item-text sidebar-link">Data Analysis</a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#material-to-work" id="toc-material-to-work" class="nav-link active" data-scroll-target="#material-to-work">Material to Work</a>
+  <ul>
+<li><a href="#dataset-q1_b" id="toc-dataset-q1_b" class="nav-link" data-scroll-target="#dataset-q1_b">1. Dataset: Q1_B</a></li>
+  <li><a href="#dataset-q1_b_1" id="toc-dataset-q1_b_1" class="nav-link" data-scroll-target="#dataset-q1_b_1">2. Dataset: “Q1_B_1”</a></li>
+  <li><a href="#dataset-q1_b_106" id="toc-dataset-q1_b_106" class="nav-link" data-scroll-target="#dataset-q1_b_106">3. Dataset: “Q1_B_106”</a></li>
+  <li><a href="#dataset-q1_screening" id="toc-dataset-q1_screening" class="nav-link" data-scroll-target="#dataset-q1_screening">4. Dataset: Q1_Screening</a></li>
+  <li><a href="#dataset-questionnaire_1" id="toc-dataset-questionnaire_1" class="nav-link" data-scroll-target="#dataset-questionnaire_1">5. Dataset: Questionnaire_1</a></li>
+  <li><a href="#code_list" id="toc-code_list" class="nav-link" data-scroll-target="#code_list">6. Code_List</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">The data</h1>
+<p class="subtitle lead">Let’s check the datasets we will be working with</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Writer</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    Javier Silva-Valencia <a href="https://orcid.org/0000-0002-5982-2821" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Instituut Voor Tropische Geneeskunde. Antwerp-Belgium
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-02-27</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header><hr>
+<hr>
+<section id="material-to-work" class="level2"><h2 class="anchored" data-anchor-id="material-to-work">Material to Work</h2>
+<p>As a result of the survey (which was carried out at different times and/or using different units of analysis), five different data sets plus a list of codes were obtained.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p>
+<pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart TD
+  A[Q1_B]
+  B[Q1_B_1]
+  C[Q1_B_106]
+  D[Q1_Screening]
+  E[Questionnaire_1]
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+
+</div>
+</div>
+</div>
+<section id="dataset-q1_b" class="level3"><h3 class="anchored" data-anchor-id="dataset-q1_b">1. Dataset: Q1_B</h3>
+<p>The unit of this data set is a household. It contains information about environmental factors such as the presence of certain trees, water bodies, wall material, organic material and mosquito nets</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-2_55905e9e110f56230d63b160210dad4d">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/pined/OneDrive - Universidad Nacional Mayor de San Marcos/Javier 2022/Belgica/AC2_DataAnalysis_ThWk/Data_Analysis_Course_CaseBihar"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-3_a326d7c04e058c870567b77e66a3c5c6">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Q1_B <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Q1_B.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">str</span>(Q1_B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   13377 obs. of  40 variables:
+ $ ID                 : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ FSN                : num  45001 45002 45003 45004 45005 ...
+ $ Neem_Tree          : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Neem_Tree_Distance : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Neem_Tree_Size     : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Neem_Tree_Age      : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Neem_Tree_Usage    : chr  "" "" "" "" ...
+ $ Neem_Tree_Use_Other: chr  "" "" "" "" ...
+ $ Bamboo_Tree        : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Bamboo_Tree_Dist   : num  3 10 16 17 5 4 15 3 1 10 ...
+ $ Banana_Tree        : num  0 0 0 0 0 0 0 1 1 0 ...
+ $ Banana_Tree_Dist   : num  -1 -1 -1 -1 -1 -1 -1 5 1 -1 ...
+ $ Rice_Field         : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ Rice_Field_Dist    : num  4 12 16 13 4 13 10 10 7 12 ...
+ $ Perm_Water_Body    : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ Perm_Wat_Body_Dist : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Wat_Body_Mid_Point : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ No_Mosquito_Net    : num  0 2 1 0 0 0 0 0 1 0 ...
+ $ Sprayed_2010       : num  86 86 86 86 86 86 86 86 86 86 ...
+ $ Sprayed_2009       : num  86 86 86 86 86 86 86 86 86 86 ...
+ $ Floor_Material     : num  153 153 153 153 153 153 153 153 155 153 ...
+ $ Other_Floor_Mat    : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Is_Floor_Damp      : num  1 1 1 1 1 1 1 1 0 1 ...
+ $ Roof_Material      : num  161 159 158 156 156 156 156 158 158 156 ...
+ $ Other_Roof_Material: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Wall_Material      : num  164 164 164 162 163 163 162 164 164 162 ...
+ $ Other_Wall_Material: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Windows_in_Room    : num  1 1 1 0 0 0 0 1 1 0 ...
+ $ Granaries_in_HH    : num  1 1 1 0 1 1 0 1 1 0 ...
+ $ Source_Drink_Water : num  167 167 92 92 92 92 92 92 92 92 ...
+ $ Other_Src_Drink_Wat: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Toilet_Facility    : num  177 177 177 177 177 177 177 177 177 177 ...
+ $ Other_Toilet_Fac   : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Cooking_Fuel       : num  180 180 180 180 180 180 180 180 180 180 ...
+ $ Other_Cooking_Fuel : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Source_Light       : num  182 182 182 182 182 182 182 182 182 182 ...
+ $ Other_Source_Light : num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Electricity_in_HH  : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ No_Of_Rooms        : num  2 2 3 1 2 3 2 1 3 1 ...
+ $ No_Sleeping_Rooms  : num  2 2 2 1 2 2 2 1 1 1 ...</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-4_3035e3bb33a98eb6f7d6707a5b346e60">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(Q1_B<span class="sc">$</span>FSN))   <span class="co">#Counting duplicate values in FSN collumn</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is no duplicates rows in FSN (Household number). So each row is a unique household</p>
+</div>
+</div>
+</section><section id="dataset-q1_b_1" class="level3"><h3 class="anchored" data-anchor-id="dataset-q1_b_1">2. Dataset: “Q1_B_1”</h3>
+<p>The unit of this data set is the animals in the household. It contains information about the owning of animals. Each row refers to an animal from a household.</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-5_706b1086f9d19bed9f6445292dcfefb8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>Q1_B_1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Q1_B_1.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">str</span>(Q1_B_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   9029 obs. of  6 variables:
+ $ FSN              : int  45001 45001 45002 45003 45004 45006 45009 45021 45021 45024 ...
+ $ Animal_Name      : chr  "Goats" "Poultry (chickens, ducks, pigeon)" "Buffaloes" "Cows/Oxen" ...
+ $ Animal_Count     : int  3 1 1 1 2 2 7 3 1 3 ...
+ $ Animal_Distance  : int  5 0 4 3 5 0 0 15 5 15 ...
+ $ Keep_Inside_House: int  1 1 0 1 1 1 1 0 1 1 ...
+ $ Days_Inside_House: int  120 365 -1 210 180 360 360 -1 150 90 ...</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-6_bdd191711e9ab6f08f54b9b347d16f63">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(Q1_B_1<span class="sc">$</span>FSN)) <span class="co">#Counting duplicate values in FSN column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1882</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are 1882 duplicates in FSN column (Household number). This means that some households have more than one type of animal</p>
+</div>
+</div>
+</section><section id="dataset-q1_b_106" class="level3"><h3 class="anchored" data-anchor-id="dataset-q1_b_106">3. Dataset: “Q1_B_106”</h3>
+<p>The unit of this data set is a household. It contains information about durable consumer goods at the level of the household.</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-7_ca00fa6497db2b8606f559d3c9477749">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>Q1_B_106 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Q1_B_106.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">str</span>(Q1_B_106)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   13377 obs. of  25 variables:
+ $ FSN             : int  45001 45002 45003 45004 45005 45006 45007 45008 45009 45010 ...
+ $ Radio           : int  1 1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ CD_Player       : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ BW_Television   : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Color_Television: int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Video_DVD_Player: int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Mobile          : int  -1 -1 -1 -1 -1 1 -1 -1 -1 -1 ...
+ $ Non_Mobile_Phone: int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Refrigerator    : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Iron            : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Sewing_Machine  : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Watch           : int  -1 -1 -1 -1 -1 1 -1 -1 -1 -1 ...
+ $ Pressure_Cooker : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Chairs          : int  1 -1 -1 -1 1 1 -1 -1 2 -1 ...
+ $ Sofas           : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Tables          : int  -1 -1 -1 -1 -1 1 -1 -1 -1 -1 ...
+ $ Cot_Bed         : int  2 2 3 -1 2 1 2 1 2 -1 ...
+ $ Cupboards       : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Bicycle         : int  1 1 1 -1 -1 2 -1 -1 1 -1 ...
+ $ Motor_Cycle     : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Animal_Draw_Cart: int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Car             : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Tractor         : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Computer        : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ Electric_Fan    : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-8_66044164918c8940827e73851653ef3a">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(Q1_B_106<span class="sc">$</span>FSN)) <span class="co">#Counting duplicate values in FSN column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is no duplicates rows in FSN (Household number). So each row is a unique household</p>
+</div>
+</div>
+</section><section id="dataset-q1_screening" class="level3"><h3 class="anchored" data-anchor-id="dataset-q1_screening">4. Dataset: Q1_Screening</h3>
+<p>The unit of this data set is a person. It contains information about the age and sex of every person in a household as well if they were cases (had suffered visceral leshmaniasis since second survey)</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-9_32c6705fd5740a0d0a45d68e79dca437">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>Q1_Screening <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Q1_Screening.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">str</span>(Q1_Screening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   81214 obs. of  10 variables:
+ $ FSN                         : int  45001 45001 45001 45001 45001 45001 45002 45002 45002 45002 ...
+ $ member_id                   : int  1 2 3 4 5 6 1 2 3 4 ...
+ $ member_age                  : int  50 48 25 22 0 11 35 33 17 15 ...
+ $ member_sex                  : int  2 3 2 3 2 2 2 3 2 2 ...
+ $ fever_gt_3_days             : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ suffered_vl_since_2nd_survey: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ date_diagnosis              : chr  "" "" "" "" ...
+ $ treatment_place             : chr  "-1" "-1" "-1" "-1" ...
+ $ current_status              : int  0 0 4 0 0 0 0 0 4 0 ...
+ $ datedis                     : int  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+</div>
+</div>
+</section><section id="dataset-questionnaire_1" class="level3"><h3 class="anchored" data-anchor-id="dataset-questionnaire_1">5. Dataset: Questionnaire_1</h3>
+<p>The unit of this data set is the household. It contains information about the number and id of the village as well some demographic information about the head of the household</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-10_a256823bac363856da6d38aca28b1ee7">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>Questionnaire_1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Questionnaire_1.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">str</span>(Questionnaire_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   13377 obs. of  10 variables:
+ $ FSN                    : int  45001 45002 45003 45004 45005 45006 45007 45008 45009 45010 ...
+ $ panchyat_id            : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ village_id             : int  11 11 11 11 11 11 11 11 11 11 ...
+ $ ward_no                : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ household_no           : int  21 680 290 3390 181 3501 1401 2330 3750 2371 ...
+ $ household_head_age     : int  50 35 60 35 40 40 60 23 25 40 ...
+ $ household_head_sex     : int  2 2 2 2 2 2 2 2 2 3 ...
+ $ household_head_religion: int  4 4 4 4 4 4 4 4 4 4 ...
+ $ household_head_caste   : int  9 9 9 9 9 9 9 9 9 9 ...
+ $ household_head_subcaste: chr  "PASWAN" "PASWAN" "PASWAN" "PASWAN" ...</code></pre>
+</div>
+</div>
+</section><section id="code_list" class="level3"><h3 class="anchored" data-anchor-id="code_list">6. Code_List</h3>
+<p>This file contains the interpretation of all the codes used among all datasets.</p>
+<div class="cell" data-hash="Sets_cache/html/unnamed-chunk-11_4f5941c5c3934d4ddd9cd59c65402577">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r numberLines number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>Code_List <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Material/Code_List.csv"</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">dec=</span> <span class="st">"."</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">head</span>(Code_List, <span class="dv">10</span>)  <span class="co">#Example of 10 first codes meaning</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Code                                          Code_Text
+1   183                                            Candles
+2    -1                                           No Value
+3   184                                           Brushing
+4   185 Leaves/Seeds used as insecticide for grain storage
+5   186                 Neem Oil used for skin application
+6   187                        Burn leaves to create smoke
+7   188                                          Not Using
+8     0                                                 No
+9     1                                                Yes
+10    2                                               Male</code></pre>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./Case.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">The case</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Analysis_Plan.html" class="pagination-link">
+        <span class="nav-page-text">Analysis Plan</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+      <div class="nav-footer-center">Copyright 2023, Javier Silva-Valencia. javier.silva@unmsm.edu.pe</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,14 @@
+{
+  "hash": "4cba707314b618f0ee870c54d3033156",
+  "result": {
+    "markdown": "---\ntitle: \"Home\"\nsubtitle: \"Home\"\n\n---\n\n::: {.cell hash='index_cache/html/unnamed-chunk-1_4fb8af28f0b7376746f9bee93e94adf4'}\n\n```{.r .cell-code .numberLines}\nhead(mtcars)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n```\n:::\n:::\n\n\n## Case: Visceral Leishmaniasis in Bihar\n\nWelcome! This are Lecture notes for the Multivariate Analysis Course at the Institute of Tropical Medicine in Antwerp. These notes were made as reference for the solutions to the exercises given in class.\n\nAll lecture notes and this webpage were created using **RStudio** with Quarto. (I didn't know it could do that either.) It's not perfect, but I hope it's useful!\n\nIf you find any errors, please let me know, thanks!\n\n## Disclaimer\n\nPlease note: These notes are a reflection of an own understanding and may not exactly match all the codes provided in class. While I've done my best to ensure their accuracy, please use them as a guide and always verify the solutions with your own understanding and the course materials.\n\n## Navigation\n\nUse the sidebar on the left to navigate through the different exercises.\n\n## Creators\n\n**Author**\n\n*Javier Silva-Valencia, (javier.silva@unmsm.edu.pe)*\n\n**Contributors**\n\n*Samuel (Baba) Rashidi Assani*\n\n*Misabe'o (Pacifique) Nunda*\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

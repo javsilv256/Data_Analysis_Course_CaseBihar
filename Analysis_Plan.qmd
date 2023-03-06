@@ -1,0 +1,141 @@
+---
+title: "Analysis Plan"
+format: 
+  html:
+    self-contained: true
+    code-line-numbers: true
+  pdf: 
+    documentclass: article
+custom_title_page: false
+filters:
+  - lightbox
+lightbox: auto
+---
+
+---
+subtitle: "Planing the data cleaning and data analysis"
+date: 2023-02-27
+
+author:
+  - name: Javier Silva-Valencia
+    orcid: 0000-0002-5982-2821
+    email: javier.silva@unmsm.edu.pe
+    affiliations:
+      - name: Instituut Voor Tropische Geneeskunde. Antwerp-Belgium
+
+language: 
+  title-block-author-single: "Writer"
+---
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Data Cleaning Plan
+
+The aim of data cleaning is to create a single data set with all the variables of importance. This involves checking the NA values, creating an asset index (using the consumer goods variables), reshaping some data to work on the same unit, and merging all data sets. Let's go step by step:
+
+### 1. Reshape Q1_B_1 
+This contains data of animals in household. We will reshape it so that each row should be a Household. We do that in order to merge with other datasets. Replace values if need it. (NA, -1)
+
+```{mermaid}
+%%| fig-width: 3.5
+flowchart LR
+  A[Q1_B_1] -->|reshape| B(New dataset:animals)
+```
+
+### 2. Create an asset index
+This index should include information of consumer goods, as well if having a bovine animal and if having a brick wall household.
+
+#### 2.1. Select consumer goods
+Select the consumer goods (from Q1_B_106 dataset) that will conform the asset.
+```{mermaid}
+flowchart LR
+  A[Q1_B_1] -->|transform to <br> dichotomous variables| B(New dataset:<br> assets)
+  B(New dataset:<br> assets) -->|only goods with prevalenc <br> between 5-95%| C(New dataset:<br> assets2)
+```
+
+#### 2.2. Create own_bovine variable 
+Use the previously created "animals" dataset to create a variable of owning a bovine animal.
+```{mermaid}
+flowchart LR
+  A[animals] -->|subset <br> bovine animals| B(New dataset:<br> hlp1)
+```
+#### 2.3. Create brickwall variable
+Use the Q1_B dataset to create a variable if the household have brickwalls.
+```{mermaid}
+flowchart LR
+  A[Q1_B] -->|subset <br> brickwall variable| B(New dataset:<br> hlp2)
+```
+#### 2.4. Merging datasets 
+Merge all this datasets in order to create the asset index
+```{mermaid}
+flowchart LR
+  A[hlp1] --> B(New dataset:<br> hlp)
+  C[hlp2] --> B(New dataset:<br> hlp)
+  B[New dataset:<br> hlp] --> D(New dataset:<br> assets3)
+  E[assets2] --> D(New dataset:<br> assets3)
+```
+#### 2.5. Use PCA to create asset_index 
+Create the asset index using the Principle component analysis (PCA) and then categorize it in 5 quintiles of wealth.
+```{mermaid}
+flowchart LR
+  A[New dataset:<br> assets3] -->|Principle component <br> analysis| B(New dataset:<br> assets4)
+```
+
+
+### 3. Merging all the databases
+
+#### 3.1. Final Merging 
+(Questionnaire_1 + asset index + animals + Q1_B + Q1_Screening)
+
+```{mermaid}
+flowchart LR
+  A[Questionnaire_1] --> B(Quest1_assets4)
+  C(assets4) --> B(Quest1_assets4)
+  B(Quest1_assets4) --> D(Quest1_assets4_animals)
+  E(animals) --> D(Quest1_assets4_animals)
+  D(Quest1_assets4_animals) --> F(Quest1_assets4_animals_q1B)
+  G(Q1_B) --> F(Quest1_assets4_animals_q1B)
+  F(Quest1_assets4_animals_q1B)--> H(Quest1_assets4_animals_q1B_Persons)
+  I(Q1_Screening)--> H(Quest1_assets4_animals_q1B_Persons)
+```
+
+#### 3.2. Select variables of interest
+For the final dataset
+```{mermaid}
+flowchart LR
+  A(Quest1_assets4_animals_q1B_Persons) -->|selecting variables <br> of interes| B(final_dataset)
+```
+
+::: callout-tip
+In this final_dataset each row is a person.
+:::
+
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Data Analysis Plan
+
+### 1. Exploring new variables
+Explore variables of importance as Mushahar caste, number of people living in each household, Having at least a bednet per three person, having thatched wall, unplastered brick wall or plastered brick wall, having damp_floor or spray their household.
+
+### 2. Univariate logistic regressions
+For each of the factors recorded we assessed associations with VL in univariate logistic regression models, calculating odds ratios.
+
+### 3. Multivariate regression
+Any association that was found to be statistically significant at the level of α=0.10 in univariate analysis was assessed as a potential confounder in the association between bed net use and VL in bivariate analysis.
+
+We then included in a multivariate model all  factors significant at the level of α=0.10 in the univariate models. 
+
+### 4. Removing variables
+We removed one at a time secondary exposures that did not significantly improve precision of the model. 
+
+### 5. Check for interaction
+With the variables retained, we checked for interactions, for this purpose categorical variables with more than two levels should be recoded to binary.
+
+
+
+
